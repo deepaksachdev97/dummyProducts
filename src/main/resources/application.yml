@@ -1,0 +1,22 @@
+spring:
+  application:name: DemoProducts
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: password
+    url: jdbc:mysql://localhost:3306/testdb
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+dummy:
+  apiUrl: https://dummyjson.com/products
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          openfeign: DEBUG
