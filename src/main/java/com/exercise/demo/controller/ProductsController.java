@@ -27,11 +27,9 @@ public class ProductsController {
     @GetMapping
     public ResponseEntity getProducts(@RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
                                       @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
-        log.info("GetProducts Request pageNumber {} pageSize {}", pageNumber, pageSize);
         Page<Product> products = productService.getProducts(pageNumber, pageSize);
         ProductResponse productResponse = new ProductResponse(products);
         ResponseEntity<ProductResponse> responseEntity = ResponseEntity.ok(productResponse);
-        log.info("GetProducts Response {}", responseEntity);
         return responseEntity;
     }
 
@@ -42,9 +40,7 @@ public class ProductsController {
             if (Objects.isNull(id)) {
                 throw new ServiceException("ID must not be null");
             }
-            log.info("GetProductById {}", id);
             ResponseEntity<Product> responseEntity = ResponseEntity.ok(productService.getProductById(id));
-            log.info("GetProducts Response {}", responseEntity);
             return responseEntity;
         } catch (ProductNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -56,9 +52,7 @@ public class ProductsController {
         if (Objects.isNull(product)) {
             throw new ServiceException("Product must not be null");
         }
-        log.info("Adding Product into DB {}", product);
         ResponseEntity<Product> responseEntity = ResponseEntity.ok(productService.addProduct(product));
-        log.info("AddProduct Response {}", responseEntity);
         return responseEntity;
     }
 
@@ -71,7 +65,6 @@ public class ProductsController {
             }
             productService.updateProductById(id, price);
             ResponseEntity<String> responseEntity = ResponseEntity.ok("Product price updated successfully");
-            log.info("UpdateProductPrice Response {}", responseEntity);
             return responseEntity;
         } catch (ProductNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
