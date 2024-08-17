@@ -50,7 +50,7 @@ public class ProductService {
         List<Product> products;
         try {
             products = productRepository.findAll();
-            if (Objects.isNull(products) && products.isEmpty()) {
+            if (!Objects.isNull(products) && products.isEmpty()) {
                 ResponseEntity<ProductList> productListResponseEntity = restTemplate.getForEntity(apiUrl, ProductList.class);
                 productEntityList = productListResponseEntity.getBody();
                 products = productEntityList.getProducts();
